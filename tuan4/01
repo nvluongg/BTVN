@@ -1,0 +1,27 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int Pagecount(int n, int p) {
+
+	
+		int fromFront;
+	if (p % 2 == 0) { fromFront = p / 2; }
+	else fromFront = (p - 1) / 2;
+
+	int fromBack;
+	if (p % 2 != 0 && n % 2 == 0) { fromBack = (p - n + 1) / 2; }
+	else fromBack = (p - n) / 2;
+
+	return min(fromFront, fromBack);
+
+
+}
+
+int main() {
+	int n, p;
+	cin >> n >> p;
+	cout << Pagecount(n, p);
+
+}
