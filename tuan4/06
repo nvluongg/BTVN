@@ -1,0 +1,64 @@
+#include <iostream>
+
+#include <algorithm>
+
+
+using namespace std;
+
+// Hàm tính ước số chung lớn nhất (GCD)
+int gcd(int a, int b) {
+	while (b != 0) {
+		int temp = b;
+		b = a % b;
+		a = temp;
+	}
+	return a;
+}
+
+// Hàm tính bội số chung nhỏ nhất (LCM)
+int lcm(int a, int b) {
+	return (a * b) / gcd(a, b);
+}
+
+// Hàm đếm số lượng số ở giữa
+int countBetweenSets(int a[], int b[], int n, int m) {
+	int lcm_result = a[0];
+	for (int i = 1; i < n; ++i) {
+		lcm_result = lcm(lcm_result, a[i]);
+	}
+
+	int gcd_result = b[0];
+	for (int i = 1; i < m; ++i) {
+		gcd_result = gcd(gcd_result, b[i]);
+	}
+
+	int count = 0;
+	for (int i = lcm_result, j = 2; i <= gcd_result; i = lcm_result * j, ++j) {
+		if (gcd_result % i == 0) {
+			count++;
+		}
+	}
+
+	return count;
+}
+
+int main() {
+	int n, m;
+	cin >> n >> m;
+
+	int a[1000];
+	int b[1000];
+
+	for (int i = 0; i < n; ++i) {
+		cin >> a[i];
+	}
+
+	for (int i = 0; i < m; ++i) {
+		cin >> b[i];
+	}
+
+	int result = countBetweenSets(a, b, n, m);
+	cout << result << endl;
+
+	return 0;
+}
