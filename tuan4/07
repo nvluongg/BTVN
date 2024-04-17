@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cstdlib>
+#include <string>
+
+using namespace std;
+
+bool checkLeft(char r[1000][1000], int i, int j, long long w, long long h) {
+if (r[i + 1][j - 1] != 'R' && i + 1 < w && j - 1 > 0 && r[i][j - 1] != 'R') { return true; }
+else return false;
+}
+
+bool checkRight(char r[1000][1000], int i, int j, long long w, long long h) {
+if (r[i + 1][j + 1] != 'R' && 1 + i < w && 1 + j < h && r[i][j + 1] != 'R') { return true; }
+else return false;
+}
+
+bool check(char r[1000][1000], int i, int j, long long w, long long h) {
+if (r[i + 1][j] != 'R' && i + 1 < w) { return true; }
+else return false;
+}
+
+int main() {
+
+long long w, h;
+char R[1000][1000];
+cin >> w >> h;
+for (int i = 0; i < w; i++) {
+	for (int j = 0; j < h; j++) {
+		cin >> R[i][j];
+	}
+}
+
+for (int i = 0; i < w; i++) {
+	for (int j = 0; j < h; j++) {
+		if (R[i][j] == 'Y') {
+			if (checkLeft(R, i, j, w, h)){
+				 R[i + 1][j - 1] = 'Y';
+			}
+			if (checkRight(R, i, j, w, h) ) {
+				 R[i + 1][j + 1] = 'Y';
+			}
+			if (check(R, i, j, w, h)) {
+				 R[i + 1][j] = 'Y';
+			}
+		}
+	}
+}
+
+for (int j = 0; j < h; j++) {
+	if (R[h-1][j] == 'Y') {
+		cout << "YES";
+		exit(0);
+	}
+}
+cout << "NO";
+
+
+}
+
